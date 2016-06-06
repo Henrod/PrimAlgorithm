@@ -59,21 +59,21 @@ class Graph {
     		}
 
 			final Edge e = (Edge) obj;
-			return this.src.index == e.src.index;
+			return this.src.equals(e.src);
 		}
 
 		@Override
 		public int hashCode() {
 		    int hash = 3;
-		    hash = 53 * hash + src.hashCode();
+		    hash = 53 * hash + (src == null ? 0 : src.hashCode());
 		    return hash;
 		}
 	}
 
-	private HashMap<Vertex, LinkedList<Edge>> edges;
+	private HashMap<Vertex, List<Edge>> edges;
 	private List<Vertex> vertexs;
 
-	public Graph(HashMap<Vertex, LinkedList<Edge>> edges, List<Vertex> vertexs) {
+	public Graph(HashMap<Vertex, List<Edge>> edges, List<Vertex> vertexs) {
 		this.edges = edges;
 		this.vertexs = vertexs;
 	}
@@ -82,14 +82,12 @@ class Graph {
 		vertexs.get(r).key = 0;
 
 		PriorityQueue<Vertex> pq = new PriorityQueue<>(vertexs);
-		List<Vertex> MST = new LinkedList<>();
 		while (!pq.isEmpty()) {
 			Vertex u = pq.poll();
-			MST.add(u);
 			u.inMST = true;
 
 			for (Edge e : edges.get(u)) {
-				if (!MST.contains(e.dst) && e.weight < e.dst.key) {
+				if (!e.dst.inMST && e.weight < e.dst.key) {
 					pq.remove(e.dst);
 					e.dst.par = u;
 					e.dst.key = e.weight;
@@ -97,7 +95,6 @@ class Graph {
 				}
 			}
 		}
-
-		return MST;
+		return vertexs;
 	}
 }
