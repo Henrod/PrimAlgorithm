@@ -41,32 +41,11 @@ class Graph {
 
 	static public class Edge {
 		public Vertex dst;
-		public Vertex src;
 		public Integer weight;
 
-		public Edge (Vertex src, Vertex dst, int weight) {
-			this.src = src;
+		public Edge (Vertex dst, int weight) {
 			this.dst = dst;
 			this.weight = new Integer(weight);
-		}
-
-		@Override
-		public boolean equals (Object obj) {
-			if (obj == null) return false;
-
-			if (!Edge.class.isAssignableFrom(obj.getClass())) {
-        		return false;
-    		}
-
-			final Edge e = (Edge) obj;
-			return this.src.equals(e.src);
-		}
-
-		@Override
-		public int hashCode() {
-		    int hash = 3;
-		    hash = 53 * hash + (src == null ? 0 : src.hashCode());
-		    return hash;
 		}
 	}
 

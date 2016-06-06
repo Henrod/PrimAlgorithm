@@ -19,18 +19,18 @@ class Solution {
 			int weight = sc.nextInt();
 
 			if (edges.containsKey(vertexs.get(src.index - 1))) {
-				edges.get(vertexs.get(src.index - 1)).add(new Graph.Edge(src, dst, weight));
+				edges.get(vertexs.get(src.index - 1)).add(new Graph.Edge(dst, weight));
 			} else {
 				List<Graph.Edge> links = new LinkedList<>();
-				links.add(new Graph.Edge(src, dst, weight));
+				links.add(new Graph.Edge(dst, weight));
 				edges.put(vertexs.get(src.index - 1), links);
 			}
 
 			if (edges.containsKey(vertexs.get(dst.index - 1))) {
-				edges.get(vertexs.get(dst.index - 1)).add(new Graph.Edge(dst, src, weight));
+				edges.get(vertexs.get(dst.index - 1)).add(new Graph.Edge(src, weight));
 			} else {
 				List<Graph.Edge> links = new LinkedList<>();
-				links.add(new Graph.Edge(dst, src, weight));
+				links.add(new Graph.Edge(src, weight));
 				edges.put(vertexs.get(dst.index - 1), links);
 			}
 		}
